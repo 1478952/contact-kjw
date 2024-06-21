@@ -3,7 +3,7 @@ interface DescriptionProps {
 }
 
 const Description = ({ text }: DescriptionProps) => {
-  return <p className="mt-6 text-lg leading-8 text-gray-600">{text}</p>;
+  return <p className="mt-6 text-lg leading-8 text-blue-200">{text}</p>;
 };
 
 export default Description;

@@ -7,10 +7,8 @@ const NavBar = () => {
       aria-label="Global"
     >
       <div className="flex gap-10">
-        <NavLink href="#" text="Product" />
-        <NavLink href="#" text="Features" />
-        <NavLink href="#" text="Marketplace" />
-        <NavLink href="#" text="Company" />
+        <NavLink href="#" text="Main" />
+        <NavLink href="#" text="Velog" />
       </div>
     </nav>
   );

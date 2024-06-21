@@ -7,7 +7,7 @@ interface HeaderLinkProps {
 
 const HeaderLink = ({ text, href }: HeaderLinkProps) => {
   return (
-    <Link href={href} className="text-sm font-semibold leading-6 text-gray-900">
+    <Link href={href} className="text-lg font-semibold leading-6 text-gray-900">
       {text}
     </Link>
   );
