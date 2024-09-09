@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  player-rdbms:
+    image: postgres:12
+    env_file:
+      - .env
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_ADMIN_USER: ${DB_USER}
+      POSTGRES_ADMIN_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - player-data:/var/lib/postgresql/data
+    ports:
+      - ${DB_OUTER_PORT}:${DB_INNER_PORT}
+    networks:
+      - public
+  player-api:
+    container_name: player-api
+    build: ./player-api
+    restart: always
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true
+    ports:
+      - ${API_SERVER_PORT}:${API_SERVER_PORT}
+    volumes:
+      - player-node-modules:/app/node_modules
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_INNER_PORT: ${DB_INNER_PORT}
+    networks:
+      - public
+    depends_on:
+      - player-rdbms
+
+volumes:
+  player-data:
+  player-node-modules:
+networks:
+  public:
+    driver: bridge

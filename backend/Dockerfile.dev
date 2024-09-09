@@ -1,0 +1,11 @@
+FROM node:18-alpine
+
+ENV TZ=Asia/Seoul
+
+WORKDIR /app
+
+COPY . .
+
+RUN yarn install
+
+CMD yarn start:dev

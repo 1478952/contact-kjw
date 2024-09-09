@@ -1,5 +1,6 @@
 "use client";
 import styled from "@emotion/styled";
+import { useMemo } from "react";
 
 const Words = styled.ul`
   margin: 0 auto;
