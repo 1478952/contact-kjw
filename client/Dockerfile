@@ -1,4 +1,4 @@
-FROM node:18-alpine As production
+FROM node:18
 
 ENV TZ=Asia/Seoul
 

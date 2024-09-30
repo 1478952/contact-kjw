@@ -1,46 +1,76 @@
 version: "3"
 
 services:
-  player-rdbms:
-    image: postgres:12
+  rdbms:
+    image: mysql:8.0.31
     env_file:
       - .env
     restart: always
     environment:
-      POSTGRES_DB: ${DB_DATABASE}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_ADMIN_USER: ${DB_USER}
-      POSTGRES_ADMIN_PASSWORD: ${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - TZ=Asia/Seoul
     volumes:
-      - player-data:/var/lib/postgresql/data
+      - db-data:/var/lib/mysql
     ports:
       - ${DB_OUTER_PORT}:${DB_INNER_PORT}
+    command: [
+        "mysqld",
+
+        # provide for full UTF-8 support
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+
+        # need the following because the mysql.js client lib doesn't yet support
+        # the newer default scheme used in MySQL 8.x
+        "--default-authentication-plugin=mysql_native_password",
+      ]
     networks:
       - public
-  player-api:
-    container_name: player-api
-    build: ./player-api
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
     restart: always
     env_file:
       - .env
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
     stdin_open: true
     tty: true
+    volumes:
+      - ./client:/app
+      - client-node-modules:/app/node_modules
+    networks:
+      - public
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    restart: always
+    env_file:
+      - .env
     ports:
       - ${API_SERVER_PORT}:${API_SERVER_PORT}
+    stdin_open: true
+    tty: true
     volumes:
-      - player-node-modules:/app/node_modules
-    environment:
-      DB_HOST: ${DB_HOST}
-      DB_INNER_PORT: ${DB_INNER_PORT}
+      - ./backend:/app
+      - backend-node-modules:/app/node_modules
     networks:
       - public
     depends_on:
-      - player-rdbms
+      - rdbms
 
 volumes:
-  player-data:
-  player-node-modules:
+  client-node-modules:
+  backend-node-modules:
+  db-data:
+
 networks:
   public:
     driver: bridge
