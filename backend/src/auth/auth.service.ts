@@ -1,12 +1,14 @@
 import * as bcrypt from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { CreateAuthDto } from "./dto/create-auth.dto";
-import { UpdateAuthDto } from "./dto/update-auth.dto";
 import { UserModel } from "src/user/entities/user.entity";
 import { UserService } from "src/user/user.service";
 import { ConfigService } from "@nestjs/config";
-import { ENV_JWT_SECRET } from "src/common/const/env-keys.const";
+import {
+  ENV_HASH_ROUNDS_KEY,
+  ENV_JWT_SECRET,
+} from "src/common/const/env-keys.const";
+import { RegistartUserDto } from "./dto/register-user.dto";
 
 @Injectable()
 export class AuthService {
@@ -14,6 +16,7 @@ export class AuthService {
     private readonly usersService: UserService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly userService: UserService,
   ) {}
 
   verifyToken(token: string) {
@@ -97,7 +100,7 @@ export class AuthService {
 
   signToken(user: Pick<UserModel, "name" | "id">, isRefreshToken: boolean) {
     const payload = {
-      email: user.name,
+      name: user.name,
       sub: user.id,
       type: isRefreshToken ? "refresh" : "access",
     };
@@ -119,5 +122,19 @@ export class AuthService {
     const existingUser = await this.authenticateWithNameAndPassword(user);
 
     return this.loginUser(existingUser);
+  }
+
+  async registerWithName(user: RegistartUserDto) {
+    const hash = await bcrypt.hash(
+      user.password,
+      parseInt(this.configService.get(ENV_HASH_ROUNDS_KEY)),
+    );
+
+    const newUser = await this.userService.createUser({
+      name: user.name,
+      password: hash,
+    });
+
+    return this.loginUser(newUser);
   }
 }

@@ -1,12 +1,18 @@
-import { Controller, Post, UseGuards, Headers } from "@nestjs/common";
+import { Controller, Post, UseGuards, Headers, Body } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { IsPubblic } from "src/common/decorator/is-public.decorator";
-import { BasicTokenGuard } from "./guard/basic-token.guard";
 import { RefreshTokenGuard } from "./guard/bearer-token.guard";
+import { RegistartUserDto } from "./dto/register-user.dto";
 
 @Controller("auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Post("register/name")
+  @IsPubblic()
+  postUser(@Body() body: RegistartUserDto) {
+    return this.authService.registerWithName(body);
+  }
 
   @Post("token/access")
   postTokenAccess(@Headers("authorization") rawToken: string) {
@@ -25,9 +31,6 @@ export class AuthController {
   postTokenRefresh(@Headers("authorization") rawToken: string) {
     const token = this.authService.extractTokenFromHeader(rawToken, true);
 
-    /**
-     * {accessToken: {token}}
-     */
     const newToken = this.authService.rotateToken(token, true);
 
     return {
@@ -35,10 +38,9 @@ export class AuthController {
     };
   }
 
-  @Post("login/email")
+  @Post("login/user")
   @IsPubblic()
-  @UseGuards(BasicTokenGuard)
-  postLoginEmail(@Headers("authorization") rawToken: string) {
+  postLoginName(@Headers("authorization") rawToken: string) {
     const token = this.authService.extractTokenFromHeader(rawToken, false);
 
     const credentials = this.authService.decodeBasicToken(token);
