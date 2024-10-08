@@ -8,7 +8,7 @@ const NavBar = () => {
     >
       <div className="flex gap-10">
         <NavLink href="#" text="Main" />
-        <NavLink href="#" text="Velog" />
+        <NavLink href="/velog" text="Velog" />
       </div>
     </nav>
   );

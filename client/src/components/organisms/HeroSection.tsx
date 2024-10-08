@@ -1,5 +1,5 @@
-import { MAIN_TEXTS } from "@/common/constants/data";
-import AnimationTitle from "../atoms/AnimationTitle";
+// import { MAIN_TEXTS } from "@/common/constants/data";
+// import AnimationTitle from "../atoms/AnimationTitle";
 import ContainedButton from "../atoms/ContainedButton";
 import Description from "../atoms/Description";
 import Image from "next/image";
@@ -16,7 +16,7 @@ const HeroSection = () => {
       />
       <div className="mx-auto max-w-2xl py-24">
         <div className="text-center">
-          <AnimationTitle animationTexts={MAIN_TEXTS} />
+          {/* <AnimationTitle animationTexts={MAIN_TEXTS} /> */}
           <Description text="안녕하세요!  FrontEnd Developer 김정운입니다." />
 
           <div className="mt-10 flex items-center justify-center gap-x-6">

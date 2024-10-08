@@ -6,7 +6,7 @@ import GithubIcon from "../atoms/icons/GithubIcon";
 // 5138BE
 const MainTemplate = () => {
   return (
-    <main className="bg-blue-600">
+    <main>
       <Header />
       <Link
         href={"https://github.com/1478952"}
