@@ -1,8 +1,10 @@
-// import { MAIN_TEXTS } from "@/common/constants/data";
-// import AnimationTitle from "../atoms/AnimationTitle";
 import ContainedButton from "../atoms/ContainedButton";
 import Description from "../atoms/Description";
 import Image from "next/image";
+import Carousel from "./Carousel/Carousel";
+import CarouselCell from "./CarouselCell/CarouselCell";
+
+const TOTAL_CAROUSEL_COUNT = 4;
 
 const HeroSection = () => {
   return (
@@ -16,7 +18,20 @@ const HeroSection = () => {
       />
       <div className="mx-auto max-w-2xl py-24">
         <div className="text-center">
-          {/* <AnimationTitle animationTexts={MAIN_TEXTS} /> */}
+          <Carousel totalCellCount={TOTAL_CAROUSEL_COUNT}>
+            <CarouselCell index={0} totalCellCount={TOTAL_CAROUSEL_COUNT}>
+              test
+            </CarouselCell>
+            <CarouselCell index={1} totalCellCount={TOTAL_CAROUSEL_COUNT}>
+              test2
+            </CarouselCell>
+            <CarouselCell index={2} totalCellCount={TOTAL_CAROUSEL_COUNT}>
+              test3
+            </CarouselCell>
+            <CarouselCell index={3} totalCellCount={TOTAL_CAROUSEL_COUNT}>
+              test3
+            </CarouselCell>
+          </Carousel>
           <Description text="안녕하세요!  FrontEnd Developer 김정운입니다." />
 
           <div className="mt-10 flex items-center justify-center gap-x-6">

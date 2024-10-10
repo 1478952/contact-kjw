@@ -9,8 +9,9 @@ interface GithubIconProps {
 const Svg = styled.svg`
   &:hover {
     transform: rotate(-45deg) translateX(-20px);
-    transition: all 0.3s ease-in;
   }
+
+  transition: all 0.3s ease-in;
 `;
 
 const GithubIcon = ({ width = "1em", height = "1em" }: GithubIconProps) => {
