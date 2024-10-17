@@ -1,33 +1,41 @@
+"use client";
+
+import MenuItem from "@/components/molecules/menuItem/MenuItem";
 import styles from "./Sidebar.module.css";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { HOME_PATH, PROJECTS_PATH } from "@/common/constants/url";
 
 const Sidebar = () => {
+  const pathname = usePathname();
+
   return (
-    <nav className={styles["sidebar-container"]}>
-      <div className={styles["sidebar-head"]}>
-        <h1 className={styles.logo}></h1>
-        <div className={styles["user-profile"]}>
-          <div className={styles["user-img"]}>
-            <Image
-              src={"/assets/images/profile.png"}
-              width={80}
-              height={80}
-              alt="profile"
-              className={styles["image"]}
-            />
-          </div>
-          <div className={styles["user-text"]}>
-            <p className={styles["user-role"]}>어드민</p>
-            <p className={styles["user-name"]}>
-              <strong>김정운</strong> 님
-            </p>
-          </div>
+    <nav className={styles["sidebar"]}>
+      <div>
+        <div className={styles["logo"]}>
+          <Image
+            src={"/assets/images/profile.png"}
+            width={50}
+            height={50}
+            alt="profile"
+            className={styles["image"]}
+          />
+          <span>Untitled</span>
         </div>
-        <div className={styles["logout-button-wrap"]}></div>
-      </div>
-      <div className={styles["sidebar-body"]}>
-        <ul className={styles["nav-list"]}></ul>
-        <div className={styles["button-wrap"]}></div>
+
+        <div className={styles["menu-section"]}>
+          <h4>Portfolio</h4>
+          <MenuItem text="Overview" link={HOME_PATH} pathname={pathname} />
+          <MenuItem
+            text="Worked projects"
+            link={PROJECTS_PATH}
+            pathname={pathname}
+          />
+        </div>
+
+        <div className={styles["menu-section"]}>
+          <h4>Velog</h4>
+        </div>
       </div>
     </nav>
   );

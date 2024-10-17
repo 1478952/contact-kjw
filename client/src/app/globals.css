@@ -133,6 +133,11 @@ table {
   border-spacing: 0;
 }
 
+body {
+  display: flex;
+}
+
 main {
-  margin-left: 260px;
+  width: 100%;
+  padding: 2rem 4rem;
 }

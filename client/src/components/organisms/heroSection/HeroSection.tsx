@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./HeroSection.module.css";
 
 import ContainedButton from "../../atoms/ContainedButton";

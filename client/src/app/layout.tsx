@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/organisms/Sidebar/Sidebar";
+import Sidebar from "@/components/organisms/sidebar/Sidebar";
+import Link from "next/link";
+import GithubIcon from "@/components/atoms/icons/GithubIcon";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +21,13 @@ export default function RootLayout({
     <html lang="ko" className="border-y-orange-100">
       <body className={inter.className}>
         <Sidebar />
-        {children}
+        <Link
+          href={"https://github.com/1478952"}
+          className="absolute right-0 translate-x-8 top-20 z-10"
+        >
+          <GithubIcon width="4rem" height="4rem" />
+        </Link>
+        <main>{children}</main>
       </body>
     </html>
   );

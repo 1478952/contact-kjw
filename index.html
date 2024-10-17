@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Sidebar UI</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f5f6fa;
+        overflow-x: hidden;
+      }
+      .sidebar {
+        width: 280px;
+        height: 100vh;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.3s ease;
+      }
+      .sidebar.dark {
+        background-color: #1b1b1b;
+        color: #fff;
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+      }
+      .logo img {
+        width: 32px;
+        margin-right: 10px;
+      }
+      .menu-section {
+        margin-bottom: 40px;
+      }
+      .menu-section h4 {
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        color: #999;
+      }
+      .menu-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        color: #333;
+      }
+      .menu-item img {
+        width: 24px;
+        margin-right: 10px;
+      }
+      .menu-item:hover {
+        color: #007bff;
+      }
+      .settings {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        color: #333;
+      }
+      .settings img {
+        width: 24px;
+        margin-right: 10px;
+      }
+      .profile {
+        display: flex;
+        align-items: center;
+      }
+      .profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      .profile-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .profile-info p {
+        font-size: 14px;
+        color: #555;
+      }
+      .profile-info a {
+        font-size: 12px;
+        color: #007bff;
+      }
+
+      /* Responsive adjustments */
+      @media screen and (max-width: 768px) {
+        body {
+          flex-direction: column;
+        }
+        .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          height: 100%;
+          transform: translateX(-100%);
+        }
+        .sidebar.show {
+          transform: translateX(0);
+        }
+        .toggle-sidebar {
+          display: block;
+          margin: 10px;
+          padding: 10px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          cursor: pointer;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .sidebar {
+          width: 220px;
+        }
+        .menu-item span,
+        .settings span,
+        .profile-info p {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Toggle Button for smaller screens -->
+    <button class="toggle-sidebar">Menu</button>
+
+    <div class="sidebar">
+      <div>
+        <!-- Logo -->
+        <div class="logo">
+          <img src="logo-placeholder.png" alt="logo" />
+          <span>Untitled UI</span>
+        </div>
+
+        <!-- Menu Sections -->
+        <div class="menu-section">
+          <h4>Dashboard</h4>
+          <div class="menu-item">
+            <img src="icon-home.png" alt="Overview" />
+            <span>Overview</span>
+          </div>
+          <div class="menu-item">
+            <img src="icon-projects.png" alt="Current projects" />
+            <span>Current projects</span>
+          </div>
+        </div>
+
+        <div class="menu-section">
+          <h4>Editor</h4>
+          <div class="menu-item">
+            <img src="icon-designer.png" alt="Designer" />
+            <span>Designer</span>
+          </div>
+          <div class="menu-item">
+            <img src="icon-magic.png" alt="Magic build" />
+            <span>Magic build</span>
+          </div>
+          <div class="menu-item">
+            <img src="icon-color.png" alt="Color system" />
+            <span>Color system</span>
+          </div>
+          <div class="menu-item">
+            <img src="icon-upload.png" alt="Upload new" />
+            <span>Upload new</span>
+          </div>
+        </div>
+
+        <div class="menu-section">
+          <h4>Reports</h4>
+          <div class="menu-item">
+            <img src="icon-overview.png" alt="Overview" />
+            <span>Overview</span>
+          </div>
+          <div class="menu-item">
+            <img src="icon-reports.png" alt="Scheduled reports" />
+            <span>Scheduled reports</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings and Profile -->
+      <div>
+        <div class="settings">
+          <img src="icon-settings.png" alt="Settings" />
+          <span>Settings</span>
+        </div>
+
+        <div class="profile">
+          <img src="profile-placeholder.png" alt="Profile" />
+          <div class="profile-info">
+            <p>Frankie Sullivan</p>
+            <a href="mailto:frankie@untitledui.com">frankie@untitledui.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const toggleButton = document.querySelector(".toggle-sidebar");
+      const sidebar = document.querySelector(".sidebar");
+
+      toggleButton.addEventListener("click", () => {
+        sidebar.classList.toggle("show");
+      });
+    </script>
+  </body>
+</html>
