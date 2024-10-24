@@ -27,7 +27,7 @@ const Sidebar = () => {
           <h4>Portfolio</h4>
           <MenuItem text="Overview" link={HOME_PATH} pathname={pathname} />
           <MenuItem
-            text="Worked projects"
+            text="Persnal projects"
             link={PROJECTS_PATH}
             pathname={pathname}
           />

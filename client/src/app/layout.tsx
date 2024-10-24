@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/organisms/sidebar/Sidebar";
 import Link from "next/link";
 import GithubIcon from "@/components/atoms/icons/GithubIcon";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Noto_Sans_KR({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Contact kjw",
